@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Aeon daemon</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="action_about">About</string>
+
+    <string name="pref_about">About</string>
+
+    <string name="testnet">Testnet</string>
+    <string name="summary_testnet">Run on testnet.</string>
+    <string name="title_testnet">Testnet</string>
+
+    <string name="stagenet">Stagenet</string>
+    <string name="summary_stagenet">Run on stagenet.</string>
+    <string name="title_stagenet">Stagenet</string>
+
+    <string name="p2pBindPort">p2pBindPort</string>
+    <string name="summary_p2pBindPort">Leave blank for default ports</string>
+    <string name="title_p2pBindPort">P2P Port</string>
+
+    <string name="rpcBindPort">rpcBindPort</string>
+    <string name="summary_rpcBindPort">Leave blank for default ports</string>
+    <string name="title_rpcBindPort">RPC Port</string>
+
+    <string name="zmqBindPort">zmqBindPort</string>
+    <string name="summary_zmqBindPort">Leave blank for default ports</string>
+    <string name="title_zmqBindPort">ZMQ RPC server</string>
+
+    <string name="limitRate">limitRate</string>
+    <string name="summary_limitRate">Set limit-rate [kB/s]</string>
+    <string name="title_limitRate">Limit rate</string>
+
+    <string name="limitRateDown">limitRateDown</string>
+    <string name="summary_limitRateDown">Set limit-rate [kB/s]</string>
+    <string name="title_limitRateDown">Limit download rate</string>
+
+    <string name="limitRateUp">limitRateUp</string>
+    <string name="summary_limitRateUp">Set limit-rate [kB/s]</string>
+    <string name="title_limitRateUp">Limit upload rate</string>
+
+    <string name="outPeers">outPeers</string>
+    <string name="summary_outPeers">Set max number of out peers</string>
+    <string name="title_outPeers">Out peers</string>
+
+    <string name="inPeers">inPeers</string>
+    <string name="summary_inPeers">Set max number of in peers</string>
+    <string name="title_inPeers">In peers</string>
+
+    <string name="peerNode">peerNode</string>
+    <string name="summary_peerNode">Manually add peer to local peerlist</string>
+    <string name="title_peerNode">Add peer</string>
+
+    <string name="exclusiveNode">exclusiveNode</string>
+    <string name="summary_exclusiveNode">Specify list of peers to connect to only (ip:port)</string>
+    <string name="title_exclusiveNode">Exclusive node</string>
+
+    <string name="priorityNode">priorityNode</string>
+    <string name="summary_priorityNode">Specify a peer to connect (ip:port)</string>
+    <string name="title_priorityNode">Priority node</string>
+
+    <string name="summary_about">This app is designed to run an AEON node locally on your phone. Connect your wallet to localhost:port (the RPC one)</string>
+    <string name="app_version">0.1 - Beta</string>
+    <string name="daemon_version">N/A</string>
+    <string name="title_daemon_version">Aeon daemon version</string>
+    <string name="summary_support">Got an issue or having ideas to improve this app? We are happy to help at https://github.com/TBD</string>
+    <string name="title_support">Feedback</string>
+
+    <string name="action_log">Logs</string>
+    <string name="log_content">Log content.......</string>
+    <string name="donation">Donations</string>
+    <string name="donation_aeon_msg">Aeon</string>
+    <string name="donation_aeon_addr">Wmsmmjtzk269mpmWm9CTC8DXDs9FZmKdrbFqm1gAmdFxJwEtsZU9PxDJDLYxtLsoSSjn6y6iXYcXVfgYSAGC5vrL13rDqUs4n</string>
+    <string name="donation_xmr_msg">XMR</string>
+    <string name="donation_xmr_addr">4AZSfpPFsLEgxpBVmNdoysYERDQiGu7daKB2WtWgKK1AGqeJBhRp4ZNjVPMARyoSpPb3WkGsQ7p5tKvKex9eJpFqRJQXvQZ</string>
+
+    <string name="title_version">Version</string>
+
+
+</resources>
