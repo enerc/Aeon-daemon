@@ -41,6 +41,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class LogActivity extends AppCompatPreferenceActivity  {
+    private static final String TAG = LogActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class LogActivity extends AppCompatPreferenceActivity  {
                 builder = new AlertDialog.Builder(LogActivity.this);
             }
             builder.setTitle("Clipboard")
-                    .setMessage("Logs selected")
+                    .setMessage(R.string.logs_selected_msg)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
@@ -77,5 +78,13 @@ public class LogActivity extends AppCompatPreferenceActivity  {
             return true;
         }
     };
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

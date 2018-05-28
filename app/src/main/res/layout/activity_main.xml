@@ -10,12 +10,15 @@
         android:id="@+id/compiledMsgAeonVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="--"
+        android:text=""
         android:textSize="17sp"
         android:gravity="center"
+        android:fontFamily="@font/ceaswfte"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <TextView
@@ -29,6 +32,7 @@
         android:text="Height"
         android:textSize="20sp"
         android:visibility="visible"
+        android:fontFamily="@font/ceaswfte"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,15 +41,15 @@
         android:id="@+id/heightValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="70dp"
         android:gravity="center"
         android:text="------"
         android:textSize="70sp"
-        android:visibility="visible"
         android:textColor="#2c89a0"
-        android:textStyle="bold"
+        android:fontFamily="@font/ceaswfte"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,6 +66,7 @@
         android:text="Target"
         android:textSize="20sp"
         android:visibility="visible"
+        android:fontFamily="@font/ceaswfte"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -72,34 +77,36 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="208dp"
+        android:fontFamily="@font/ceaswfte"
         android:gravity="center"
         android:text="------"
-        android:textSize="50sp"
         android:textColor="#2c89a0"
-        android:textStyle="bold"
+        android:textSize="70sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
+    <info.hoang8f.widget.FButton
         android:id="@+id/synchronize"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="300dp"
+        android:layout_width="233dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="150dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/ceaswfte"
         android:gravity="center"
+        android:onClick="myClickHandler"
         android:text="Daemon running"
+        android:textAllCaps="false"
         android:textColor="#000000"
         android:textSize="30sp"
         android:visibility="visible"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 
     <view
         android:id="@+id/gauge"
@@ -137,31 +144,31 @@
 
     <TextView
         android:id="@+id/peers"
-        android:layout_width="127dp"
-        android:layout_height="22dp"
+        android:layout_width="123dp"
+        android:layout_height="20dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="256dp"
+        android:layout_marginStart="16dp"
         android:gravity="left"
         android:text="0 peers connected"
         android:textColor="#000000"
         android:textSize="14sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/lastUpdate"
         android:layout_width="51dp"
         android:layout_height="18dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="332dp"
+        android:layout_marginStart="16dp"
         android:gravity="left"
         android:text="      "
         android:textColor="#000000"
         android:textSize="14sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

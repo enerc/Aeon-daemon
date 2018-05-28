@@ -30,6 +30,9 @@ Running a node locally is much safer than using a public node.
 ## About Monero
 If you want to build this app for Monero, just replace aeon32 and aeon64 by there monero ones, and change ressources and name in MainActivity:copyBinaryFile. That's it!  
 
+## Tips
+If your phone gets pretty hot during synchronization, go to "settings" -> "Limit rate" and set a value around 50 kB/s. This will reduce CPU usage but will make synchronization slower....  
+
 
 ### Donations
 

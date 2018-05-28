@@ -23,7 +23,7 @@
     <string name="title_rpcBindPort">RPC Port</string>
 
     <string name="zmqBindPort">zmqBindPort</string>
-    <string name="summary_zmqBindPort">Leave blank for default ports</string>
+    <string name="summary_zmqBindPort">Leave blank for 127.0.0.1</string>
     <string name="title_zmqBindPort">ZMQ RPC server</string>
 
     <string name="limitRate">limitRate</string>
@@ -58,7 +58,7 @@
     <string name="summary_priorityNode">Specify a peer to connect (ip:port)</string>
     <string name="title_priorityNode">Priority node</string>
 
-    <string name="summary_about">This app is designed to run an AEON node locally on your phone. Connect your wallet to localhost:port (the RPC one)</string>
+    <string name="summary_about">This app is designed to run an AEON node locally on your phone. Connect your wallet to the localhost to use this node.</string>
     <string name="app_version">0.1 - Beta</string>
     <string name="daemon_version">N/A</string>
     <string name="title_daemon_version">Aeon daemon version</string>
@@ -74,6 +74,12 @@
     <string name="donation_xmr_addr">4AZSfpPFsLEgxpBVmNdoysYERDQiGu7daKB2WtWgKK1AGqeJBhRp4ZNjVPMARyoSpPb3WkGsQ7p5tKvKex9eJpFqRJQXvQZ</string>
 
     <string name="title_version">Version</string>
+    <string name="daemon_stopped">Stopped</string>
+    <string name="daemon_starting">Starting</string>
+    <string name="daemon_runnning">Running</string>
+    <string name="peers_connected">peers connected</string>
+    <string name="address_selected_msg">Address selected</string>
+    <string name="logs_selected_msg">Logs selected</string>
 
 
 </resources>

@@ -16,7 +16,7 @@
 package org.aeon.aeondaemon.app.model;
 
 public class Settings {
-    private String dataDir=null; //"/home/christophe/.aeon";
+    private String dataDir=null;
     private String logFile="/dev/null";
     private Boolean isTestnet = false;
     private Boolean isStageNet = false;

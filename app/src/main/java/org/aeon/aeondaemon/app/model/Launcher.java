@@ -16,33 +16,20 @@
 
 package org.aeon.aeondaemon.app.model;
 
-/**
- * Copyright (c) 2018 enerc
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 import android.util.Log;
 
 import org.aeon.aeondaemon.app.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class Launcher {
+    private static final String TAG = Launcher.class.getSimpleName();
     private static int MAX_LOG_SIZE = 30000;
 
     private BufferedReader reader=null;
@@ -54,11 +41,14 @@ public class Launcher {
     private String peers;
     private boolean running=false;
     private Process process=null;
+    private boolean stoppingRequested = false;
 
-    public boolean start(Settings pref)  {
+    public String start(Settings pref)  {
         try  {
+            File f = new File(MainActivity.BINARY_PATH);
+
             String env = getEnv(pref);
-            Log.e("process" , env);
+            Log.d(TAG , env);
 
             // Executes the command.
             process = Runtime.getRuntime().exec(MainActivity.BINARY_PATH+" "+env);
@@ -70,11 +60,12 @@ public class Launcher {
             writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
 
         } catch (IOException e) {
+            Log.e(TAG,e.getMessage());
             e.printStackTrace();
-            return false;
+            return e.getMessage();
         }
         running = true;
-        return true;
+        return null;
     }
 
     /**
@@ -138,12 +129,10 @@ public class Launcher {
                         i++;
                     }
                 }
-
-                //System.out.println("---------" + i);
-                //System.out.println(logs.toString());
             }
 
         } catch (IOException e) {
+            Log.e(TAG,e.getMessage());
             e.printStackTrace();	// to debugger
         }
     }
@@ -156,6 +145,7 @@ public class Launcher {
                 writer.flush();
             }
         } catch (IOException e) {
+            Log.e(TAG,e.getMessage());
             e.printStackTrace();
         }
     }
@@ -167,9 +157,10 @@ public class Launcher {
                 writer.flush();
             }
         } catch (IOException e) {
+            Log.e(TAG,e.getMessage());
             e.printStackTrace();
         }
-        running = false;
+        stoppingRequested = true;
     }
 
     public String getEnv(Settings pref) {
@@ -228,15 +219,26 @@ public class Launcher {
     }
 
     public boolean isAlive() {
-        if (process == null) return false;
-        try {
-            process.waitFor();
-        } catch (InterruptedException e){
-            return false;
+        Log.d(TAG,"Is Alive "+process+ " "+running+ " " +stoppingRequested);
+        // process requested to stop
+        if (stoppingRequested) {
+            stoppingRequested = false;
+            try {
+                Log.d(TAG, "WAIT FOR");
+                if (process != null) process.waitFor();
+                running = false;
+                process = null;
+                return false;
+            } catch (InterruptedException e) {
+                running = false;
+                process = null;
+                return false;
+            }
         }
-        process = null;
+        if (process != null & running) return true;
+        if (process == null || (!running)) return false;
+
         return true;
     }
-
 
 }
