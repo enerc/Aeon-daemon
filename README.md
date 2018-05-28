@@ -1,6 +1,6 @@
 # Aeon daemon
  
-AEON node for your Android phone. This aeond packaged in an Android App.  
+AEON node for your Android phone. This is aeond packaged in an Android App.  
 
 
 ## Installation from github
