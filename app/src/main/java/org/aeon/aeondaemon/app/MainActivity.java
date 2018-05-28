@@ -56,12 +56,16 @@ public class MainActivity extends AppCompatActivity {
     private static int ButtonColorStopped=0xe0444d;
     private static int ButtonColorStarting=0x16a085;
     private static int ButtonColorRunning=0x16f085;
+    private static boolean initDone = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        copyBinaryFile();
+
+        // if not initialized - because onCreate is called on screen rotation.
+        if (!initDone) copyBinaryFile();
+
         setContentView(R.layout.activity_main);
 
         switchButtonSync = (FButton)  findViewById(R.id.synchronize);
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         MyAsyncTask myTask = new MyAsyncTask();
         myTask.execute();
+        initDone = true;
     }
 
     @Override
