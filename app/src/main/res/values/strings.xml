@@ -74,7 +74,7 @@
     <string name="donation_xmr_addr">4AZSfpPFsLEgxpBVmNdoysYERDQiGu7daKB2WtWgKK1AGqeJBhRp4ZNjVPMARyoSpPb3WkGsQ7p5tKvKex9eJpFqRJQXvQZ</string>
 
     <string name="title_version">Version</string>
-    <string name="daemon_stopped">Stopped</string>
+    <string name="daemon_stopped">Click to start</string>
     <string name="daemon_starting">Starting</string>
     <string name="daemon_runnning">Running</string>
     <string name="peers_connected">peers connected</string>

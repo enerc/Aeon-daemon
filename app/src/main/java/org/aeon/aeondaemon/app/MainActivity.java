@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private static AppCompatPreferenceActivity aboutActivity;
     private FButton switchButtonSync;
     private boolean isChecked = false;
-    private static int ButtonColorStopped=0xe0444d;
-    private static int ButtonColorStarting=0x16a085;
-    private static int ButtonColorRunning=0x16f085;
+    private static int ButtonColorStopped=0x39a833;
+    private static int ButtonColorStarting=0x9295dd;
+    private static int ButtonColorRunning=0xa28a82;
     private static boolean initDone = false;
 
 
