@@ -15,31 +15,19 @@
  */
 package org.aeon.aeondaemon.app;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 
+import org.aeon.aeondaemon.app.Fragments.MainSlideFragment;
+import org.aeon.aeondaemon.app.model.CollectPreferences;
 import org.aeon.aeondaemon.app.model.Launcher;
 
-import java.util.Map;
-
 public class SettingsPrefActivity extends AppCompatPreferenceActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = SettingsPrefActivity.class.getSimpleName();
     private SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     @Override
@@ -53,22 +41,49 @@ public class SettingsPrefActivity extends AppCompatPreferenceActivity {
         listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
                     @Override
                     public void onSharedPreferenceChanged(SharedPreferences prefs, String key)  {
-                        Launcher launcher = MainActivity.getLauncher();
+                        Launcher launcher = MainSlideFragment.getLauncher();
                         if (launcher != null) {
-                            Log.d(TAG, "Stop aeon daemon");
+                            Log.e(TAG, "Stop aeon daemon");
                             launcher.exit();
                         }
+
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+                        // If SD card enabled set a preference if empty
+                        String path = preferences.getString("sd_storage","");
+                        boolean used = preferences.getBoolean("use_sd_card",false);
+                        // Card has been inserted and "Use SD card" checked
+                        if (used && path.equals("")) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("sd_storage",CollectPreferences.getExternalStoragePath());
+                            editor.commit();
+
+                            getFragmentManager().beginTransaction().replace(android.R.id.content, new MainPreferenceFragment()).commit();
+
+                        }
+                        Log.e(TAG,path+" " + used);
+
                     }
                 };
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         preferences.registerOnSharedPreferenceChangeListener(listener);
+
+        String sdLocation = CollectPreferences.getExternalStoragePath();
+        // if the SD card has been removed.
+        if (sdLocation == null) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("use_sd_card",false);
+            editor.commit();
+        }
+
+        Log.d(TAG,"sdLocation:"+ sdLocation);
     }
 
     public static class MainPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_main);
+            addPreferencesFromResource(R.xml.pref_settings);
         }
     }
 

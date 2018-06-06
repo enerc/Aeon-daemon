@@ -77,17 +77,48 @@
     <string name="daemon_stopped">Click to start</string>
     <string name="daemon_starting">Starting</string>
     <string name="daemon_runnning">Running</string>
+    <string name="daemon_stopping">Stopping</string>
     <string name="peers_connected">peers connected</string>
     <string name="address_selected_msg">Address selected</string>
     <string name="logs_selected_msg">Logs selected</string>
 
     <string name="restricted_rpc">Restricted RPC access</string>
     <string name="restricted_rpc_msg">Prevents external users to access your node</string>
+    <string name="daemon_was_killed">Aeon daemon stopped syncing</string>
+    <string name="msg_peers_connected">peers connected</string>
+    <string name="download_at">Download at</string>
 
-    <!-- Gauges -->
-    <string name="invalid_number_of_nicks">Total nicks (%1$d) should be a multiple of major nick interval (%2$d). Scale may be distorted.</string>
-    <string name="invalid_min_max_ratio">Sum of min (%1$f) and max (%2$f) should be divisible by 2. Scale may be distorted.</string>
-    <string name="invalid_min_max">Sum of min (%1$f) and max (%2$f) should be a multiple of value per nick (%3$f). Scale may be distorted.</string>
-    <string name="scale_ok">Scale should be okay.</string>
+    <!-- external storage -->
+    <string name="use_sd_card">Use SD card</string>
+    <string name="summary_use_sd_card"></string>
+    <string name="title_storage">Location</string>
+    <string name="summary_storage">SD card location</string>
+    <string name="fastblock_sync">Fast bloc sync</string>
+    <string name="summary_fastblock_sync">Sync up most of the way by using embedded, known block hashes.</string>
+    <string name="disk_used">GB free</string>
+    <string name="daemon_not_running">The daemon is not running.</string>
+
+    <!-- logs -->
+    <string-array name="loglevel_titles">
+        <item>Error</item>
+        <item>Info</item>
+        <item>Debug</item>
+        <item>Trace</item>
+    </string-array>
+
+    <string-array name="log_level_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- preferences -->
+    <string name="summary_blockSyncSize">0 = adaptive</string>
+    <string name="title_blockSyncSize">Bloc sync size</string>
+    <string name="summary_loglevel">Log level</string>
+    <string name="title_loglevel">Level</string>
+    <string name="dialog_loglevel">Select the daemon log level</string>
+
 
 </resources>

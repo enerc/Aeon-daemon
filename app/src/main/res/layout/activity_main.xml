@@ -5,174 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/background">
+    android:fitsSystemWindows="true"
+    android:id="@+id/main_layout">
 
-    <TextView
-        android:id="@+id/compiledMsgAeonVersion"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/actionBarSettings"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="17sp"
-        android:textColor="#ffffff"
-        android:gravity="center"
-        android:fontFamily="@font/ceaswfte"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
-    <TextView
-        android:id="@+id/msgHeight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:text="Height"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:visibility="visible"
-        android:fontFamily="@font/ceaswfte"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+    </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/heightValue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
-        android:gravity="center"
-        android:text="------"
-        android:textSize="70sp"
-        android:textColor="#2c89a0"
-        android:fontFamily="@font/ceaswfte"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
-    <TextView
-        android:id="@+id/msgTarget"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="185dp"
-        android:gravity="center"
-        android:text="Target"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:visibility="visible"
-        android:fontFamily="@font/ceaswfte"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/heightTarget"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="208dp"
-        android:fontFamily="@font/ceaswfte"
-        android:gravity="center"
-        android:text="------"
-        android:textColor="#2c89a0"
-        android:textSize="70sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <info.hoang8f.widget.FButton
-        android:id="@+id/synchronize"
-        android:layout_width="233dp"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="150dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:fontFamily="@font/ceaswfte"
-        android:gravity="center"
-        android:onClick="myClickHandler"
-        android:text="Daemon running"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <view
-        android:id="@+id/gauge"
-        class="de.nitri.gauge.Gauge"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="right"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:visibility="visible"
-        app:faceColor="0xffb0b0b0"
-        app:initialValue="22"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:maxValue="100"
-        app:minValue="0"
-        app:totalNicks="120"
-        app:valuePerNick="1" />
-
-    <TextView
-        android:id="@+id/disk"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="48dp"
-        android:gravity="right"
-        android:text="Disk"
-        android:textColor="#ffffff"
-        android:textSize="12sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/peers"
-        android:layout_width="123dp"
-        android:layout_height="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        android:gravity="left"
-        android:text="0 peers connected"
-        android:textColor="#ffffff"
-        android:textSize="14sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/lastUpdate"
-        android:layout_width="51dp"
-        android:layout_height="18dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:gravity="left"
-        android:text="      "
-        android:textColor="#ffffff"
-        android:textSize="14sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.constraint.ConstraintLayout>

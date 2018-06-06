@@ -17,7 +17,8 @@ package org.aeon.aeondaemon.app.model;
 
 public class Settings {
     private String dataDir=null;
-    private String logFile="/dev/null";
+    private String logFile="/storage/sdcard1/Aeon/aeon.log" ;//""/dev/null";
+    private int logLevel=0;
     private Boolean isTestnet = false;
     private Boolean isStageNet = false;
     private int blockSyncSize = 0;
@@ -36,7 +37,35 @@ public class Settings {
     private int limitRate=-1;
     private String boostrapDaemonAdress=null;
     private String boostrapDaemonLogin=null;
-    private int log_level=1;
+    private Boolean restrictedRpc=true;
+    private String sdCardPath=null;
+    private boolean useSDCard=false;
+    private boolean fastBlocSync=false;
+
+    public boolean isUseSDCard() {
+        return useSDCard;
+    }
+
+    public void setUseSDCard(boolean useSDCard) {
+        this.useSDCard = useSDCard;
+    }
+
+    public void setSdCardPath(String sdCardPath) {
+        this.sdCardPath = sdCardPath;
+    }
+
+    public void setTestnet(Boolean testnet) {
+        isTestnet = testnet;
+    }
+
+    public void setStageNet(Boolean stageNet) {
+        isStageNet = stageNet;
+    }
+
+
+    public String getSdCardPath() {
+        return sdCardPath;
+    }
 
     public String getDataDir() {
         return dataDir;
@@ -146,12 +175,6 @@ public class Settings {
     public void setBoostrapDaemonLogin(String boostrapDaemonLogin) {
         this.boostrapDaemonLogin = boostrapDaemonLogin;
     }
-    public int getLog_level() {
-        return log_level;
-    }
-    public void setLog_level(int log_level) {
-        this.log_level = log_level;
-    }
     public String getPeerNode() {
         return peerNode;
     }
@@ -163,5 +186,35 @@ public class Settings {
     }
     public void setAddPriorityNode(String addPriorityNode) {
         this.addPriorityNode = addPriorityNode;
+    }
+    public Boolean getRestrictedRpc() {
+        return restrictedRpc;
+    }
+    public void setRestrictedRpc(Boolean restrictedRpc) {
+        this.restrictedRpc = restrictedRpc;
+    }
+
+    public int getLogLevel() {
+        return logLevel;
+    }
+
+    public Boolean getTestnet() {
+        return isTestnet;
+    }
+
+    public Boolean getStageNet() {
+        return isStageNet;
+    }
+
+    public void setLogLevel(int logLevel) {
+        this.logLevel = logLevel;
+    }
+
+    public boolean isFastBlocSync() {
+        return fastBlocSync;
+    }
+
+    public void setFastBlocSync(boolean fastBlocSync) {
+        this.fastBlocSync = fastBlocSync;
     }
 }

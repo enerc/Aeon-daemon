@@ -16,11 +16,14 @@
 package org.aeon.aeondaemon.app.model;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
+import java.io.File;
 import java.util.Map;
 
 public class CollectPreferences {
     public static Settings collectedPreferences = new Settings();
+    private static final String TAG = CollectPreferences.class.getSimpleName();
 
     public static void collect(SharedPreferences prefs) {
         Map<String,?> keys = prefs.getAll();
@@ -93,6 +96,41 @@ public class CollectPreferences {
                 if (! t.equals("")) collectedPreferences.setAddPriorityNode(t);
                 else collectedPreferences.setAddPriorityNode(null);
             }
+            if (entry.getKey().equals("restricted_rpc")) {
+                Boolean t = prefs.getBoolean("restricted_rpc",true);
+                collectedPreferences.setRestrictedRpc(t.booleanValue());
+            }
+            if (entry.getKey().equals("use_sd_card")) {
+                Boolean t = prefs.getBoolean("use_sd_card",false);
+                collectedPreferences.setUseSDCard(t.booleanValue());
+            }
+            if (entry.getKey().equals("sd_storage")) {
+                String t = prefs.getString("sd_storage","");
+                if (! t.equals("")) collectedPreferences.setSdCardPath(t);
+                else collectedPreferences.setSdCardPath(null);
+            }
+            if (entry.getKey().equals("loglevel")) {
+                Integer t = Integer.parseInt(prefs.getString("loglevel","0"));
+                collectedPreferences.setLogLevel(t.intValue());
+            }
+            if (entry.getKey().equals("fast_bloc_sync")) {
+                Boolean t = prefs.getBoolean("fast_bloc_sync",false);
+                collectedPreferences.setFastBlocSync(t.booleanValue());
+            }
+
         }
+    }
+
+    public static String getExternalStoragePath() {
+        String externalStoragePath = System.getenv("SECONDARY_STORAGE");
+        if (externalStoragePath == null) return null;
+
+        boolean hasExternalStorage = false;
+        File file = new File(externalStoragePath);
+        if (file.exists()) hasExternalStorage = file.getUsableSpace() > 0;
+        Log.d(TAG,"External storage: "+hasExternalStorage);
+
+        if (!hasExternalStorage) return null;
+        else return externalStoragePath+ "/Aeon";
     }
 }
