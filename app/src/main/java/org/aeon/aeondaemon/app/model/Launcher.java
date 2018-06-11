@@ -16,9 +16,9 @@
 
 package org.aeon.aeondaemon.app.model;
 
-import android.os.Build;
 import android.util.Log;
 
+import org.aeon.aeondaemon.app.Fragments.MainSlideFragment;
 import org.aeon.aeondaemon.app.MainActivity;
 
 import java.io.BufferedReader;
@@ -29,11 +29,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Launcher {
     private static final String TAG = Launcher.class.getSimpleName();
     private static int MAX_LOG_SIZE = 30000;
-    private static enum ProcessState { STOPPED, STARTING, RUNNING, STOPPING };
+    private enum ProcessState { STOPPED, STARTING, RUNNING, STOPPING };
 
     private BufferedReader reader=null;
     private BufferedWriter writer=null;
@@ -45,12 +46,12 @@ public class Launcher {
     private String downloading;
     private Process process=null;
     private ProcessState processState = ProcessState.STOPPED;
-    private int pid;
 
     public String start(Settings pref)  {
         if (!checkSDCard(pref)) {
             return "Fail to create "+pref.getSdCardPath();
         }
+        MainSlideFragment.setHasCriticalError(false);
         try  {
             // reset log buffer
             if (logs != null) logs.delete(0,logs.length());
@@ -66,7 +67,6 @@ public class Launcher {
             try {
                 Field field = process.getClass().getDeclaredField("pid");
                 field.setAccessible(true);
-                pid = field.getInt(process);
             } catch (Throwable e) {
                 Log.e(TAG,e.getMessage());
             }
@@ -79,7 +79,6 @@ public class Launcher {
 
         } catch (IOException e) {
             Log.e(TAG,e.getMessage());
-            e.printStackTrace();
             return e.getMessage();
         }
         processState = ProcessState.STARTING;
@@ -93,8 +92,8 @@ public class Launcher {
      * Non blocking I/O
      */
     public void updateStatus() {
-        //Log.d(TAG,"updateStatus");
         try {
+            //Log.d(TAG,"updateStatus "+reader.ready());
             if (reader != null && reader.ready()) {
                 char[] buffer = new char[16384];
                 if (logs == null) logs = new StringBuffer();
@@ -169,7 +168,6 @@ public class Launcher {
 
         } catch (IOException e) {
             Log.e(TAG,e.getMessage());
-            e.printStackTrace();	// to debugger
         }
     }
 
@@ -181,12 +179,15 @@ public class Launcher {
                 writer.flush();
             }
         } catch (IOException e) {
-            Log.e(TAG,e.getMessage());
-            e.printStackTrace();
+            Log.e(TAG,"getSyncInfo: " +e.getMessage());
         }
     }
 
     public void exit() {
+        // sending an exit twice might make it waiting forever
+        if (processState == ProcessState.STOPPING)
+            return;
+
         try {
             if (writer != null) {
                 writer.write("exit\n");
@@ -255,35 +256,36 @@ public class Launcher {
     public boolean isStopped() {
         return processState == ProcessState.STOPPED;
     }
+    public boolean isStarting() { return processState == ProcessState.STARTING; }
 
     public String getDownloading() {
         return downloading;
     }
 
     public boolean isAlive() {
-        if (Build.VERSION.SDK_INT >= 26) {
-            return (process != null) && process.isAlive();
-        } else {
-            try {
-                Runtime rt = Runtime.getRuntime();
-                String command = "ps | grep aeond";
-                Process pr = rt.exec(command);
+        try {
+            ProcessBuilder builder = new ProcessBuilder("ps"); // | /system/bin/grep aeond");
+            builder.redirectErrorStream(true);
+            Map<String, String> env = builder.environment();
+            env.put("PATH","/bin:/system/bin");
+            Process process = builder.start();
 
-                InputStreamReader isReader = new InputStreamReader(pr.getInputStream());
-                BufferedReader bReader = new BufferedReader(isReader);
-                String strLine = null;
-                while ((strLine = bReader.readLine()) != null) {
-                    if (strLine.contains("/aeond")) {
-                        processState = ProcessState.RUNNING;
-                        return true;
-                    }
+            InputStreamReader isReader = new InputStreamReader(process.getInputStream());
+            BufferedReader bReader = new BufferedReader(isReader);
+            String strLine = null;
+            while ((strLine = bReader.readLine()) != null) {
+                int i = strLine.indexOf("aeond");
+                if (i > 0 && !(strLine.length() > i+5 && strLine.charAt(i+5) == 'a')) {
+                    //Log.e(TAG,"*******" + strLine);
+                    processState = ProcessState.RUNNING;
+                    return true;
                 }
-            } catch (Exception ex) {
-                Log.e(TAG,"Got exception using getting the PID"+ ex.getMessage());
             }
-            processState = ProcessState.STOPPED;
-            return false;
+        } catch (Exception ex) {
+            Log.e(TAG,"Got exception using getting the PID"+ ex.getMessage());
         }
+        processState = ProcessState.STOPPED;
+        return false;
     }
 
     /**
@@ -297,8 +299,16 @@ public class Launcher {
             File file = new File(pref.getSdCardPath());
             boolean r = file.exists();
             if (!r) r = file.mkdir();
-            Log.d(TAG, "Check SD card " + file.exists() + "  Writable " + " r=" + r + " " + file.canWrite() + " " + file.getAbsolutePath());
+            //Log.d(TAG, "Check SD card " + file.exists() + "  Writable " + " r=" + r + " " + file.canWrite() + " " + file.getAbsolutePath());
             return r;
-        } else return true;
+        } else if (pref.isUseCustomStorage() && pref.getCustomStoragePath() != null) {
+            // Try to create location
+            File file = new File(pref.getCustomStoragePath());
+            boolean r = file.exists();
+            if (!r) r = file.mkdir();
+            //Log.d(TAG, "Check SD card " + file.exists() + "  Writable " + " r=" + r + " " + file.canWrite() + " " + file.getAbsolutePath());
+            return r;
+        } else
+            return true;
     }
 }

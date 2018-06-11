@@ -16,10 +16,13 @@
 package org.aeon.aeondaemon.app;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -33,6 +36,7 @@ import android.os.Build;
 
 import org.aeon.aeondaemon.app.Fragments.LogSlideFragment;
 import org.aeon.aeondaemon.app.Fragments.MainSlideFragment;
+import org.aeon.aeondaemon.app.model.SynchronizeThread;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,15 +52,19 @@ public class MainActivity extends AppCompatActivity {
     public static int FRAGMENT_LOG=1;
     private static AppCompatPreferenceActivity logActivity;
     private static AppCompatPreferenceActivity aboutActivity;
+    private static AppCompatPreferenceActivity themeActivity;
     private static boolean initDone = false;
     private static ViewPager mViewPager;
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private SynchronizeThread synchronizeThread = null;
+    private Context context = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
+        context = getApplicationContext();
 
         // if not initialized - because onCreate is called on screen rotation.
         if (!initDone) copyBinaryFile();
@@ -64,15 +72,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_TITLE);
-        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.actionbar));
+        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(context, getToolbarBg(context)));
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        // Create the adapter that will return a fragment for each of the three primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        // Create the background synchrpnioation thread
+        if (synchronizeThread == null) {
+            synchronizeThread = new SynchronizeThread(context);
+            Thread t = new Thread(synchronizeThread);
+            t.start();
+        }
 
         initDone = true;
     }
@@ -84,12 +98,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+
+        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(context, getToolbarBg(context)));
+        setTheme(MainActivity.getStyle(context));
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
             // launch settings activity
             startActivity(new Intent(MainActivity.this, SettingsPrefActivity.class));
+            return true;
+        }
+        if (id == R.id.action_theme) {
+            // launch settings activity
+            startActivity(new Intent(MainActivity.this, ThemeActivity.class));
             return true;
         }
         if (id == R.id.action_about) {
@@ -101,21 +128,22 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * Copy the aeond binary file to a location where wa have execute rights
      */
     private void copyBinaryFile() {
         Resources res = getResources();
-        Log.d(TAG, " " + is64bitsProcessor());
+        //Log.d(TAG, " " + is64bitsProcessor());
 
         InputStream in_s = res.openRawResource(is64bitsProcessor() ? R.raw.aeond64 : R.raw.aeond32);
         try {
             // read aeond binary file from the ressource raw folder
             byte[] b = new byte[in_s.available()];
             in_s.read(b);
-            String pathName = getApplicationContext().getApplicationInfo().dataDir + "/lib";
+            String pathName = context.getApplicationInfo().dataDir + "/lib";
 
-            BINARY_PATH = getApplicationContext().getCacheDir().getPath() + "/../aeond";
+            BINARY_PATH = context.getCacheDir().getPath() + "/../aeond";
 
             // write the file to an android executable location
             OutputStream outputStream = new FileOutputStream(BINARY_PATH);
@@ -147,10 +175,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public static void setLogActivity(AppCompatPreferenceActivity _logActivity) {
-        logActivity = _logActivity;
-    }
 
     public static void setAboutActivity(AppCompatPreferenceActivity _aboutActivity) {
         aboutActivity = _aboutActivity;
@@ -190,5 +214,55 @@ public class MainActivity extends AppCompatActivity {
 
     public static ViewPager getmViewPager() {
         return mViewPager;
+    }
+
+    public static void setThemeActivity(AppCompatPreferenceActivity themeActivity) {
+        MainActivity.themeActivity = themeActivity;
+    }
+
+    public static int getStyle(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String theme = preferences.getString("theme", null);
+
+        if (theme == null)
+            return R.style.PreferencesThemeAeonCoins;
+        else if (theme.equals("PreferencesThemeAeonSolid"))
+            return R.style.PreferencesThemeAeonSolid;
+        else if (theme.equals("PreferencesThemeAeonBg"))
+            return R.style.PreferencesThemeAeonBg;
+        else if (theme.equals("PreferencesThemeAeonMyth"))
+            return R.style.PreferencesThemeAeonMythology;
+        else
+            return R.style.PreferencesThemeAeonCoins;
+    }
+
+    public static int getToolbarBg(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String theme = preferences.getString("theme", null);
+        if (theme == null)
+            return R.drawable.coinscolor;
+        else if (theme.equals("PreferencesThemeAeonSolid"))
+            return R.drawable.solidcolor;
+        else if (theme.equals("PreferencesThemeAeonBg"))
+            return R.drawable.actionbar;
+        else if (theme.equals("PreferencesThemeAeonMyth"))
+            return R.drawable.mythbar;
+        else
+            return R.drawable.coinscolor;
+    }
+
+    public static int getBg(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String theme = preferences.getString("theme", null);
+        if (theme == null)
+            return R.drawable.coins;
+        else if (theme.equals("PreferencesThemeAeonSolid"))
+            return R.drawable.solidcolor;
+        else if (theme.equals("PreferencesThemeAeonBg"))
+            return R.drawable.background;
+        else if (theme.equals("PreferencesThemeAeonMyth"))
+            return R.drawable.mythology;
+        else
+            return R.drawable.coins;
     }
 }

@@ -1,10 +1,21 @@
 <resources>
     <string name="app_name">Aeon daemon</string>
+
+    <string name="storage">storage</string>
+    <string name="network_setttings">Network settings</string>
+    <string name="nodes">Nodes</string>
+    <string name="Bandwith">Bandwith</string>
+    <string name="Peers">Peers</string>
+    <string name="Security">Security</string>
+    <string name="Logs">Logs</string>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
     <string name="action_about">About</string>
 
     <string name="pref_about">About</string>
+    <string name="height">Bloc</string>
+    <string name="target">Latest bloc</string>
 
     <string name="testnet">Testnet</string>
     <string name="summary_testnet">Run on testnet.</string>
@@ -62,16 +73,19 @@
     <string name="app_version">0.1 - Beta</string>
     <string name="daemon_version">N/A</string>
     <string name="title_daemon_version">Aeon daemon version</string>
-    <string name="summary_support">Got an issue or having ideas to improve this app? We are happy to help at https://github.com/TBD</string>
+    <string name="summary_support">Got an issue or having ideas to improve this app? We are happy to help at https://github.com/enerc/Aeon-daemon</string>
     <string name="title_support">Feedback</string>
 
     <string name="action_log">Logs</string>
     <string name="log_content">Log content.......</string>
     <string name="donation">Donations</string>
+    <string name="donation_aeon">AEON donation</string>
+    <string name="donation_xmr">XMR donation</string>
     <string name="donation_aeon_msg">Aeon</string>
     <string name="donation_aeon_addr">Wmsmmjtzk269mpmWm9CTC8DXDs9FZmKdrbFqm1gAmdFxJwEtsZU9PxDJDLYxtLsoSSjn6y6iXYcXVfgYSAGC5vrL13rDqUs4n</string>
     <string name="donation_xmr_msg">XMR</string>
     <string name="donation_xmr_addr">4AZSfpPFsLEgxpBVmNdoysYERDQiGu7daKB2WtWgKK1AGqeJBhRp4ZNjVPMARyoSpPb3WkGsQ7p5tKvKex9eJpFqRJQXvQZ</string>
+    <string name="apropos">About this app</string>
 
     <string name="title_version">Version</string>
     <string name="daemon_stopped">Click to start</string>
@@ -81,6 +95,11 @@
     <string name="peers_connected">peers connected</string>
     <string name="address_selected_msg">Address selected</string>
     <string name="logs_selected_msg">Logs selected</string>
+
+    <string name="summary_theme">Choose a theme</string>
+    <string name="title_theme">Theme</string>
+    <string name="dialog_theme">Select a theme</string>
+    <string name="action_theme">Theme</string>
 
     <string name="restricted_rpc">Restricted RPC access</string>
     <string name="restricted_rpc_msg">Prevents external users to access your node</string>
@@ -93,10 +112,17 @@
     <string name="summary_use_sd_card"></string>
     <string name="title_storage">Location</string>
     <string name="summary_storage">SD card location</string>
+    <string name="use_custom_storage">Use custom storage location</string>
+    <string name="summary_custom_storage"></string>
+    <string name="title_custom_storage">Define your own blockchain storage location</string>
+    <string name="summary_custom_location">Data won\'t be removed when uninstalling this app</string>
     <string name="fastblock_sync">Fast bloc sync</string>
     <string name="summary_fastblock_sync">Sync up most of the way by using embedded, known block hashes.</string>
     <string name="disk_used">GB free</string>
     <string name="daemon_not_running">The daemon is not running.</string>
+    <string name="sync_starting">Synchronization starting</string>
+    <string name="sd_custom_error">Invalid settings</string>
+    <string name="sd_custom_error_msg">Custom and SD storage can\'t be set at the same time</string>
 
     <!-- logs -->
     <string-array name="loglevel_titles">
@@ -112,6 +138,21 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string-array name="theme_titles">
+        <item>Solid color</item>
+        <item>Space</item>
+        <item>Coins</item>
+        <item>Mythology</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>PreferencesThemeAeonSolid</item>
+        <item>PreferencesThemeAeonBg</item>
+        <item>PreferencesThemeAeonCoins</item>
+        <item>PreferencesThemeAeonMyth</item>
+    </string-array>
+
 
     <!-- preferences -->
     <string name="summary_blockSyncSize">0 = adaptive</string>

@@ -37,9 +37,10 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
 
-        setTheme(R.style.PreferencesTheme);
+        setTheme(MainActivity.getStyle(getApplicationContext()));
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_TITLE);
-        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.actionbar));
+        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), MainActivity.getBg(getApplicationContext())));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

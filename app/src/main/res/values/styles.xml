@@ -9,8 +9,34 @@
         <item name="android:windowTranslucentStatus" >true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
-    <style name="PreferencesTheme">
+    <style name="PreferencesThemeAeonBg">
         <item name="android:windowBackground">@drawable/background</item>
+        <item name="colorAccent">#fc4</item>
+        <item name="colorPrimaryDark">#fff</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:colorBackground">#000</item>
+        <item name="android:textColorSecondary">#ffffff</item>
+        <item name="android:alertDialogTheme">@style/StyledDialog</item>
+    </style>
+    <style name="PreferencesThemeAeonSolid">
+        <item name="android:windowBackground">@drawable/solidcolor</item>
+        <item name="colorAccent">#fc4</item>
+        <item name="colorPrimaryDark">#fff</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColorSecondary">#ffffff</item>
+        <item name="android:alertDialogTheme">@style/StyledDialog</item>
+    </style>
+    <style name="PreferencesThemeAeonCoins">
+        <item name="android:windowBackground">@drawable/coins</item>
+        <item name="colorAccent">#fc4</item>
+        <item name="colorPrimaryDark">#fff</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:colorBackground">#000</item>
+        <item name="android:textColorSecondary">#ffffff</item>
+        <item name="android:alertDialogTheme">@style/StyledDialog</item>
+    </style>
+    <style name="PreferencesThemeAeonMythology">
+        <item name="android:windowBackground">@drawable/mythology</item>
         <item name="colorAccent">#fc4</item>
         <item name="colorPrimaryDark">#fff</item>
         <item name="android:textColor">#ffffff</item>

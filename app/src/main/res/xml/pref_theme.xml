@@ -13,7 +13,7 @@
         android:height="8dp"
         android:title="" />
 
-    <PreferenceCategory android:title="Theme">
+    <PreferenceCategory android:title="@string/action_theme">
         <ListPreference
             android:key="theme"
             android:summary="@string/summary_theme"

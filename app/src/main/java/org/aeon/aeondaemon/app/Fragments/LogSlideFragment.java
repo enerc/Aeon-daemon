@@ -20,11 +20,10 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,25 +32,45 @@ import android.widget.TextView;
 import org.aeon.aeondaemon.app.MainActivity;
 import org.aeon.aeondaemon.app.R;
 import org.aeon.aeondaemon.app.model.Launcher;
+import org.aeon.aeondaemon.app.model.SynchronizeThread;
 
 public class LogSlideFragment  extends Fragment {
     private static final String TAG = LogSlideFragment.class.getSimpleName();
-    private static long RefreshInterval = 500;
+    private static long RefreshInterval = 1000;
     private ViewGroup rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
 
+        final Handler handler = new Handler();
+
+        Runnable r = new Runnable()  {
+            @Override
+            public void run() {
+                boolean hasFocus =  MainActivity.getmViewPager().getCurrentItem() == MainActivity.FRAGMENT_LOG;
+                if (hasFocus) {
+                    Launcher launcher = SynchronizeThread.getLauncher();
+                    if (launcher == null) {
+                        TextView v = (TextView) rootView.findViewById(R.id.logs);
+                        v.setText(getString(R.string.daemon_not_running));
+                    } else {
+                        launcher.updateStatus();
+                        TextView v = (TextView) rootView.findViewById(R.id.logs);
+                        v.setText(launcher.getLogs());
+                    }
+                }
+                handler.postDelayed( this, RefreshInterval );
+            }
+        };
+        handler.postDelayed(r,RefreshInterval);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate( R.layout.log_fragment, container, false);
         ((TextView)rootView.findViewById(R.id.logs)).setOnLongClickListener(copyListener);
 
-        MyAsyncTask myTask = new MyAsyncTask();
-        myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         return rootView;
     }
 
@@ -84,53 +103,4 @@ public class LogSlideFragment  extends Fragment {
             return true;
         }
     };
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-*/
-    // Update logs in the background
-    private class MyAsyncTask extends AsyncTask<String, String, String> {
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        protected String doInBackground(String... params) {
-            while (true) {
-                boolean hasFocus =  MainActivity.getmViewPager().getCurrentItem() == MainActivity.FRAGMENT_LOG;
-                if (hasFocus) publishProgress("update");
-                try {
-                    Thread.sleep(RefreshInterval);
-                } catch (InterruptedException e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-        }
-
-        protected void onProgressUpdate(String... text) {
-            try {
-                Launcher launcher = MainSlideFragment.getLauncher();
-                if (launcher == null) {
-                    TextView v = (TextView) rootView.findViewById(R.id.logs);
-                    v.setText(getString(R.string.daemon_not_running));
-                } else {
-                    launcher.updateStatus();
-                    TextView v = (TextView) rootView.findViewById(R.id.logs);
-                    v.setText(launcher.getLogs());
-                }
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
-            }
-        }
-
-        protected void onPostExecute(String result) {
-        }
-
-    }
-
 }

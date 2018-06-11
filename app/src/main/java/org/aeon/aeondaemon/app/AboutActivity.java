@@ -30,11 +30,13 @@ import android.widget.TextView;
 
 public class AboutActivity extends AppCompatPreferenceActivity {
     private static final String TAG = AboutActivity.class.getSimpleName();
+    private Context context = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        context = getApplicationContext();
 
         setContentView(R.layout.activity_about);
         MainActivity.setAboutActivity(this);
@@ -46,11 +48,12 @@ public class AboutActivity extends AppCompatPreferenceActivity {
         t.setOnClickListener(copyListener);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_TITLE);
-        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.actionbar));
+        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(context, MainActivity.getToolbarBg(context)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        setTheme(MainActivity.getStyle(context));
     }
 
 
@@ -83,6 +86,14 @@ public class AboutActivity extends AppCompatPreferenceActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(context, MainActivity.getToolbarBg(context)));
+        setTheme(MainActivity.getStyle(context));
     }
 
 }

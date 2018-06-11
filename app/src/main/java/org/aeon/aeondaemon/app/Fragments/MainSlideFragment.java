@@ -16,13 +16,13 @@
 package org.aeon.aeondaemon.app.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,110 +33,99 @@ import org.aeon.aeondaemon.app.MainActivity;
 import org.aeon.aeondaemon.app.R;
 import org.aeon.aeondaemon.app.model.CollectPreferences;
 import org.aeon.aeondaemon.app.model.Launcher;
+import org.aeon.aeondaemon.app.model.SynchronizeThread;
 
 import java.io.File;
 
 public class MainSlideFragment extends Fragment {
     private static final String TAG = MainSlideFragment.class.getSimpleName();
-    private static long RefreshInterval = 5000;
-    private static Launcher launcher = null;
+    private static long RefreshInterval = 1000;
+    public static String execError = null;
     private ViewGroup rootView;
+    private Context context = null;
+    private static boolean hasCriticalError = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.main_fragment, container, false);
+        context = getActivity();
 
-        MyAsyncTask myTask = new MyAsyncTask();
-        myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        final Handler handler = new Handler();
+
+        Runnable r = new Runnable()  {
+            @Override
+            public void run() {
+                doUpdate();
+                handler.postDelayed( this, RefreshInterval );
+            }
+        };
+        handler.postDelayed(r,RefreshInterval);
+
+        TextView v = (TextView) rootView.findViewById(R.id.sync_status);
+        v.setText(getActivity().getString(R.string.sync_starting));
+
+        rootView.setBackground(ContextCompat.getDrawable(context,MainActivity.getBg(context)));
+
         return rootView;
     }
 
-    private class MyAsyncTask extends AsyncTask<String, String, String> {
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        protected String doInBackground(String... params) {
-            while (true) {
-                boolean hasFocus =  MainActivity.getmViewPager().getCurrentItem() == MainActivity.FRAGMENT_MAIN;
-                if (hasFocus) {
-                    if (launcher == null) {
-                        launcher = new Launcher();
-                        updatePreferences();
-                    }
-
-                    // The process died or was not started
-                    if (launcher.isStopped()) {
-                        // Restart the background process
-                        updatePreferences();        // properties may have been changed in the settings.
-                        String status = launcher.start(CollectPreferences.collectedPreferences);
-                        if (status != null) {
-                            launcher.updateStatus();
-                            String msg = "";
-                            if (launcher.getLogs().length() > 0) msg = launcher.getLogs();
-                            else msg = "aeond process failed to start. err=" + status;
-
-                            AlertDialog.Builder builder;
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
-                            } else {
-                                builder = new AlertDialog.Builder(getActivity());
+    private void doUpdate() {
+        boolean hasFocus = MainActivity.getmViewPager().getCurrentItem() == MainActivity.FRAGMENT_MAIN;
+        if (hasFocus) {
+            if (hasCriticalError) {
+                Log.d(TAG,"hasCriticalError");
+                return;
+            }
+            if (execError != null) {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(getActivity());
+                }
+                builder.setTitle("aeond")
+                        .setMessage(execError)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
                             }
-                            builder.setTitle("aeond")
-                                    .setMessage(msg)
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
-                        }
-                    }
-                    if (launcher.isAlive()) {
-                        launcher.updateStatus();
-                        launcher.getSyncInfo();
-                        publishProgress("update");
-                    }
-                }
-                try {
-                    Thread.sleep(RefreshInterval);
-                } catch (InterruptedException e) {
-                    Log.e(TAG, e.getMessage());
-                }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                execError = null;
+                hasCriticalError = true;
             }
-        }
 
-        protected void onProgressUpdate(String... text) {
-            Log.d(TAG,"onProgressUpdate");
-            try {
-                if (launcher != null && launcher.isAlive()) {
-                    TextView v = (TextView) rootView.findViewById(R.id.heightValue);
-                    v.setText(launcher.getHeight());
+            Launcher launcher = SynchronizeThread.getLauncher();
+            if (launcher == null) return;
 
-                    v = (TextView) rootView.findViewById(R.id.heightTarget);
-                    v.setText(launcher.getTarget());
+            if (launcher.isStarting()) {
+                TextView v = (TextView) rootView.findViewById(R.id.sync_status);
+                v.setText(getActivity().getString(R.string.sync_starting));
+            } else if (launcher.isAlive()) {
+                TextView v = (TextView) rootView.findViewById(R.id.heightValue);
+                v.setText(launcher.getHeight());
 
-                    v = (TextView) rootView.findViewById(R.id.compiledMsgAeonVersion);
-                    if (launcher.getVersion() != null) v.setText(launcher.getVersion());
+                v = (TextView) rootView.findViewById(R.id.heightTarget);
+                v.setText(launcher.getTarget());
 
-                    v = (TextView) rootView.findViewById(R.id.peers);
-                    if (launcher.getPeers() != null)
-                        v.setText(launcher.getPeers() + " " + getActivity().getString(R.string.msg_peers_connected));
+                v = (TextView) rootView.findViewById(R.id.compiledMsgAeonVersion);
+                if (launcher.getVersion() != null) v.setText(launcher.getVersion());
 
-                    v = (TextView) rootView.findViewById(R.id.downloading);
-                    if (launcher.getDownloading() != null)
-                        v.setText(getActivity().getString(R.string.download_at) + " " + launcher.getDownloading() + " kB/s");
+                v = (TextView) rootView.findViewById(R.id.peers);
+                if (launcher.getPeers() != null)
+                    v.setText(launcher.getPeers() + " " + getActivity().getString(R.string.msg_peers_connected));
 
-                    v = (TextView) rootView.findViewById(R.id.disk);
-                    String s = String.format("%.1f", getUsedSpace());
-                    v.setText(s + " " + getActivity().getString(R.string.disk_used));
-                }
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
+                v = (TextView) rootView.findViewById(R.id.downloading);
+                if (launcher.getDownloading() != null)
+                    v.setText(getActivity().getString(R.string.download_at) + " " + launcher.getDownloading() + " kB/s");
+
+                v = (TextView) rootView.findViewById(R.id.disk);
+                String s = String.format("%.1f", getUsedSpace());
+                v.setText(s + " " + getActivity().getString(R.string.disk_used));
+
+                v = (TextView) rootView.findViewById(R.id.sync_status);
+                v.setText("");
             }
-        }
-        protected void onPostExecute(String result) {
         }
     }
 
@@ -150,19 +139,14 @@ public class MainSlideFragment extends Fragment {
         return f.getFreeSpace() / 1024.0f / 1024.0f / 1024.0f;
     }
 
-    public static Launcher getLauncher() {
-        return launcher;
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        rootView.setBackground(ContextCompat.getDrawable(context,MainActivity.getBg(context)));
     }
 
-    private void updatePreferences() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        CollectPreferences.collect(preferences);
-        // If using internal storage, set the path for it.
-        if (!CollectPreferences.collectedPreferences.isUseSDCard()) {
-            String storagePath = getActivity().getApplicationContext().getFilesDir().getPath();
-            CollectPreferences.collectedPreferences.setDataDir(storagePath);
-        } else {
-            CollectPreferences.collectedPreferences.setDataDir(CollectPreferences.collectedPreferences.getSdCardPath());
-        }
+    public static void setHasCriticalError(boolean _hasCriticalError) {
+        hasCriticalError = _hasCriticalError;
     }
 }

@@ -16,6 +16,7 @@
 package org.aeon.aeondaemon.app.model;
 
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -109,6 +110,15 @@ public class CollectPreferences {
                 if (! t.equals("")) collectedPreferences.setSdCardPath(t);
                 else collectedPreferences.setSdCardPath(null);
             }
+            if (entry.getKey().equals("use_custom_storage")) {
+                Boolean t = prefs.getBoolean("use_custom_storage",false);
+                collectedPreferences.setUseCustomStorage(t.booleanValue());
+            }
+            if (entry.getKey().equals("sd_custom_storage")) {
+                String t = prefs.getString("sd_custom_storage","");
+                if (! t.equals("")) collectedPreferences.setCustomStoragePath(t);
+                else collectedPreferences.setCustomStoragePath(null);
+            }
             if (entry.getKey().equals("loglevel")) {
                 Integer t = Integer.parseInt(prefs.getString("loglevel","0"));
                 collectedPreferences.setLogLevel(t.intValue());
@@ -128,9 +138,17 @@ public class CollectPreferences {
         boolean hasExternalStorage = false;
         File file = new File(externalStoragePath);
         if (file.exists()) hasExternalStorage = file.getUsableSpace() > 0;
-        Log.d(TAG,"External storage: "+hasExternalStorage);
+        //Log.d(TAG,"External storage: "+hasExternalStorage);
 
         if (!hasExternalStorage) return null;
         else return externalStoragePath+ "/Aeon";
+    }
+
+    public static String getCustomPath() {
+        File file = new File(Environment.getExternalStorageDirectory(),"aeon");
+        if (!file.mkdirs()) {
+            Log.e(TAG, "Directory not created");
+        }
+        return file.getAbsolutePath();
     }
 }

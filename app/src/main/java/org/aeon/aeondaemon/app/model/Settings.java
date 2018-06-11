@@ -17,7 +17,7 @@ package org.aeon.aeondaemon.app.model;
 
 public class Settings {
     private String dataDir=null;
-    private String logFile="/storage/sdcard1/Aeon/aeon.log" ;//""/dev/null";
+    private String logFile="/dev/null";
     private int logLevel=0;
     private Boolean isTestnet = false;
     private Boolean isStageNet = false;
@@ -40,6 +40,8 @@ public class Settings {
     private Boolean restrictedRpc=true;
     private String sdCardPath=null;
     private boolean useSDCard=false;
+    private String customStoragePath=null;
+    private boolean useCustomStorage=false;
     private boolean fastBlocSync=false;
 
     public boolean isUseSDCard() {
@@ -216,5 +218,21 @@ public class Settings {
 
     public void setFastBlocSync(boolean fastBlocSync) {
         this.fastBlocSync = fastBlocSync;
+    }
+
+    public String getCustomStoragePath() {
+        return customStoragePath;
+    }
+
+    public void setCustomStoragePath(String customStoragePath) {
+        this.customStoragePath = customStoragePath;
+    }
+
+    public boolean isUseCustomStorage() {
+        return useCustomStorage;
+    }
+
+    public void setUseCustomStorage(boolean useCustomStorage) {
+        this.useCustomStorage = useCustomStorage;
     }
 }
