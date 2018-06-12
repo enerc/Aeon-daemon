@@ -15,6 +15,7 @@
  */
 package org.aeon.aeondaemon.app.Fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -77,20 +78,22 @@ public class MainSlideFragment extends Fragment {
                 return;
             }
             if (execError != null) {
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(context);
+                if(!((Activity) context).isFinishing()) {
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+                    } else {
+                        builder = new AlertDialog.Builder(context);
+                    }
+                    builder.setTitle("aeond")
+                            .setMessage(execError)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 }
-                builder.setTitle("aeond")
-                        .setMessage(execError)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
                 execError = null;
                 hasCriticalError = true;
             }

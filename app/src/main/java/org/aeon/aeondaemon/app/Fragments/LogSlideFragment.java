@@ -27,6 +27,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.aeon.aeondaemon.app.MainActivity;
@@ -46,10 +47,10 @@ public class LogSlideFragment  extends Fragment {
 
         final Handler handler = new Handler();
 
-        Runnable r = new Runnable()  {
+        Runnable r = new Runnable() {
             @Override
             public void run() {
-                boolean hasFocus =  MainActivity.getmViewPager().getCurrentItem() == MainActivity.FRAGMENT_LOG;
+                boolean hasFocus = MainActivity.getmViewPager().getCurrentItem() == MainActivity.FRAGMENT_LOG;
                 if (hasFocus) {
                     Launcher launcher = SynchronizeThread.getLauncher();
                     if (launcher == null) {
@@ -61,16 +62,16 @@ public class LogSlideFragment  extends Fragment {
                         v.setText(launcher.getLogs());
                     }
                 }
-                handler.postDelayed( this, RefreshInterval );
+                handler.postDelayed(this, RefreshInterval);
             }
         };
-        handler.postDelayed(r,RefreshInterval);
+        handler.postDelayed(r, RefreshInterval);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = (ViewGroup) inflater.inflate( R.layout.log_fragment, container, false);
-        ((TextView)rootView.findViewById(R.id.logs)).setOnLongClickListener(copyListener);
+        rootView = (ViewGroup) inflater.inflate(R.layout.log_fragment, container, false);
+        ((TextView) rootView.findViewById(R.id.logs)).setOnLongClickListener(copyListener);
 
         return rootView;
     }
@@ -84,7 +85,7 @@ public class LogSlideFragment  extends Fragment {
     private View.OnLongClickListener copyListener = new View.OnLongClickListener() {
         public boolean onLongClick(View v) {
             ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("label",((TextView)v).getText());
+            ClipData clip = ClipData.newPlainText("label", ((TextView) v).getText());
             clipboard.setPrimaryClip(clip);
 
             AlertDialog.Builder builder;
@@ -110,5 +111,4 @@ public class LogSlideFragment  extends Fragment {
         super.onAttach(_context);
         context = _context;
     }
-
 }
