@@ -79,9 +79,9 @@ public class MainSlideFragment extends Fragment {
             if (execError != null) {
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+                    builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
                 } else {
-                    builder = new AlertDialog.Builder(getActivity());
+                    builder = new AlertDialog.Builder(context);
                 }
                 builder.setTitle("aeond")
                         .setMessage(execError)
@@ -100,7 +100,7 @@ public class MainSlideFragment extends Fragment {
 
             if (launcher.isStarting()) {
                 TextView v = (TextView) rootView.findViewById(R.id.sync_status);
-                v.setText(getActivity().getString(R.string.sync_starting));
+                v.setText(context.getString(R.string.sync_starting));
             } else if (launcher.isAlive()) {
                 TextView v = (TextView) rootView.findViewById(R.id.heightValue);
                 v.setText(launcher.getHeight());
@@ -113,15 +113,15 @@ public class MainSlideFragment extends Fragment {
 
                 v = (TextView) rootView.findViewById(R.id.peers);
                 if (launcher.getPeers() != null)
-                    v.setText(launcher.getPeers() + " " + getActivity().getString(R.string.msg_peers_connected));
+                    v.setText(launcher.getPeers() + " " + context.getString(R.string.msg_peers_connected));
 
                 v = (TextView) rootView.findViewById(R.id.downloading);
                 if (launcher.getDownloading() != null)
-                    v.setText(getActivity().getString(R.string.download_at) + " " + launcher.getDownloading() + " kB/s");
+                    v.setText(context.getString(R.string.download_at) + " " + launcher.getDownloading() + " kB/s");
 
                 v = (TextView) rootView.findViewById(R.id.disk);
                 String s = String.format("%.1f", getUsedSpace());
-                v.setText(s + " " + getActivity().getString(R.string.disk_used));
+                v.setText(s + " " + context.getString(R.string.disk_used));
 
                 v = (TextView) rootView.findViewById(R.id.sync_status);
                 v.setText("");
@@ -144,6 +144,12 @@ public class MainSlideFragment extends Fragment {
         super.onResume();
 
         rootView.setBackground(ContextCompat.getDrawable(context,MainActivity.getBg(context)));
+    }
+
+    @Override
+    public void onAttach(Context _context) {
+        super.onAttach(_context);
+        context = _context;
     }
 
     public static void setHasCriticalError(boolean _hasCriticalError) {

@@ -38,6 +38,7 @@ public class LogSlideFragment  extends Fragment {
     private static final String TAG = LogSlideFragment.class.getSimpleName();
     private static long RefreshInterval = 1000;
     private ViewGroup rootView;
+    private Context context = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,15 +83,15 @@ public class LogSlideFragment  extends Fragment {
 
     private View.OnLongClickListener copyListener = new View.OnLongClickListener() {
         public boolean onLongClick(View v) {
-            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("label",((TextView)v).getText());
             clipboard.setPrimaryClip(clip);
 
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+                builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
             } else {
-                builder = new AlertDialog.Builder(getActivity());
+                builder = new AlertDialog.Builder(context);
             }
             builder.setTitle("Clipboard")
                     .setMessage(R.string.logs_selected_msg)
@@ -103,4 +104,11 @@ public class LogSlideFragment  extends Fragment {
             return true;
         }
     };
+
+    @Override
+    public void onAttach(Context _context) {
+        super.onAttach(_context);
+        context = _context;
+    }
+
 }
