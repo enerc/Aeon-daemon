@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Nœud crypto-monnaie Aeon</string>
-    <string name="action_settings">Propriétés</string>
-    <string name="title_activity_settings">Propriétés</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="title_activity_settings">Paramètres</string>
     <string name="action_about">A propos</string>
     <string name="pref_about">A propos</string>
     <string name="testnet">Environnement de test</string>
@@ -53,10 +53,6 @@
     <string name="action_log">Traces</string>
     <string name="log_content">Contenus des traces</string>
     <string name="donation">Dons</string>
-    <string name="daemon_stopped">Cliquer pour démarrer</string>
-    <string name="daemon_starting">En cours de démarrage</string>
-    <string name="daemon_runnning">Actif</string>
-    <string name="daemon_stopping">En cours d\'arrêt</string>
     <string name="peers_connected">nœuds connectés</string>
     <string name="address_selected_msg">Adresse sélectionnée</string>
     <string name="logs_selected_msg">Traces selectionnées</string>
@@ -88,12 +84,26 @@
     <string name="title_loglevel">Niveau</string>
     <string name="dialog_loglevel">Chosir le niveau de trace</string>
     <string name="storage">Stockage</string>
-    <string name="network_setttings">Propriétés réseau</string>
+    <string name="network_setttings">Paramètres réseau</string>
     <string name="nodes">Nœuds</string>
     <string name="Bandwith">Bande passante</string>
     <string name="Peers">Nœuds amis</string>
     <string name="Security">Sécurité</string>
     <string name="Logs">Traces</string>
+
+    <string-array name="loglevel_titles">
+        <item>Erreur</item>
+        <item>Info</item>
+        <item>Debug</item>
+        <item>Trace</item>
+    </string-array>
+
+    <string-array name="log_level_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 
     <string-array name="theme_titles">
         <item>Couleur unie</item>
@@ -101,6 +111,14 @@
         <item>Monnaies</item>
         <item>Mythologie</item>
     </string-array>
+
+    <string-array name="theme_values">
+        <item>PreferencesThemeAeonSolid</item>
+        <item>PreferencesThemeAeonBg</item>
+        <item>PreferencesThemeAeonCoins</item>
+        <item>PreferencesThemeAeonMyth</item>
+    </string-array>
+
     <string name="donation_aeon">Dons AEON</string>
     <string name="donation_xmr">Dons XMR</string>
     <string name="apropos">Qui suis-je?</string>

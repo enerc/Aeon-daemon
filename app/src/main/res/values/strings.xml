@@ -14,8 +14,8 @@
     <string name="action_about">About</string>
 
     <string name="pref_about">About</string>
-    <string name="height">Bloc</string>
-    <string name="target">Latest bloc</string>
+    <string name="height">Block</string>
+    <string name="target">Latest block</string>
 
     <string name="testnet">Testnet</string>
     <string name="summary_testnet">Run on testnet.</string>
@@ -81,17 +81,13 @@
     <string name="donation">Donations</string>
     <string name="donation_aeon">AEON donation</string>
     <string name="donation_xmr">XMR donation</string>
-    <string name="donation_aeon_msg">Aeon</string>
-    <string name="donation_aeon_addr">Wmsmmjtzk269mpmWm9CTC8DXDs9FZmKdrbFqm1gAmdFxJwEtsZU9PxDJDLYxtLsoSSjn6y6iXYcXVfgYSAGC5vrL13rDqUs4n</string>
-    <string name="donation_xmr_msg">XMR</string>
-    <string name="donation_xmr_addr">4AZSfpPFsLEgxpBVmNdoysYERDQiGu7daKB2WtWgKK1AGqeJBhRp4ZNjVPMARyoSpPb3WkGsQ7p5tKvKex9eJpFqRJQXvQZ</string>
+    <string name="donation_aeon_msg" translatable="false">Aeon</string>
+    <string name="donation_aeon_addr" translatable="false">Wmsmmjtzk269mpmWm9CTC8DXDs9FZmKdrbFqm1gAmdFxJwEtsZU9PxDJDLYxtLsoSSjn6y6iXYcXVfgYSAGC5vrL13rDqUs4n</string>
+    <string name="donation_xmr_msg" translatable="false">XMR</string>
+    <string name="donation_xmr_addr" translatable="false">4AZSfpPFsLEgxpBVmNdoysYERDQiGu7daKB2WtWgKK1AGqeJBhRp4ZNjVPMARyoSpPb3WkGsQ7p5tKvKex9eJpFqRJQXvQZ</string>
     <string name="apropos">About this app</string>
 
-    <string name="title_version">Version</string>
-    <string name="daemon_stopped">Click to start</string>
-    <string name="daemon_starting">Starting</string>
-    <string name="daemon_runnning">Running</string>
-    <string name="daemon_stopping">Stopping</string>
+    <string name="title_version" translatable="false">Version</string>
     <string name="peers_connected">peers connected</string>
     <string name="address_selected_msg">Address selected</string>
     <string name="logs_selected_msg">Logs selected</string>
@@ -109,11 +105,11 @@
 
     <!-- external storage -->
     <string name="use_sd_card">Use SD card</string>
-    <string name="summary_use_sd_card"></string>
+    <string name="summary_use_sd_card" translatable="false"></string>
     <string name="title_storage">Location</string>
     <string name="summary_storage">SD card location</string>
     <string name="use_custom_storage">Use custom storage location</string>
-    <string name="summary_custom_storage"></string>
+    <string name="summary_custom_storage" translatable="false"></string>
     <string name="title_custom_storage">Define your own blockchain storage location</string>
     <string name="summary_custom_location">Data won\'t be removed when uninstalling this app</string>
     <string name="fastblock_sync">Fast bloc sync</string>

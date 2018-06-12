@@ -6,8 +6,8 @@ android {
         applicationId "org.aeon.aeondaemon.app"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 5
-        versionName "0.4 - RC"
+        versionCode 6
+        versionName "0.5 - RC"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

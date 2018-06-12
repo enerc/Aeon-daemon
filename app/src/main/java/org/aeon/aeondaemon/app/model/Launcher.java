@@ -274,9 +274,8 @@ public class Launcher {
             BufferedReader bReader = new BufferedReader(isReader);
             String strLine = null;
             while ((strLine = bReader.readLine()) != null) {
-                int i = strLine.indexOf("aeond");
+                int i = strLine.lastIndexOf("aeond");
                 if (i > 0 && !(strLine.length() > i+5 && strLine.charAt(i+5) == 'a')) {
-                    //Log.e(TAG,"*******" + strLine);
                     processState = ProcessState.RUNNING;
                     return true;
                 }
