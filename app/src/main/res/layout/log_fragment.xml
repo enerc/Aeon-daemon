@@ -14,18 +14,18 @@
         android:layout_height="?attr/actionBarSize" />
 
     <ScrollView
+        android:id="@+id/logs_scrollview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
         <TextView
         android:id="@+id/logs"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
         android:text="Waiting for logs....      "
         android:textColor="#000000"
         android:textSize="10sp"
+        android:scrollingCache="true"
         android:background="@null"
         android:visibility="visible"
         android:maxLines = "500"
@@ -35,7 +35,7 @@
         android:textIsSelectable="true"
         android:descendantFocusability="beforeDescendants"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fragment_containerLog" />
+        app:layout_constraintTop_toTopOf="@+id/logs_scrollview" />
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
