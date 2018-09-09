@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Aeon daemon</string>
+    <string name="app_name">Wownero daemon</string>
 
     <string name="storage">storage</string>
     <string name="network_setttings">Network settings</string>
@@ -69,20 +69,20 @@
     <string name="summary_priorityNode">Specify a peer to connect (ip:port)</string>
     <string name="title_priorityNode">Priority node</string>
 
-    <string name="summary_about">This app is designed to run an AEON node locally on your phone. Connect your wallet to the localhost to use this node.</string>
-    <string name="app_version">0.1 - Beta</string>
+    <string name="summary_about">This app is designed to run an Wownero node locally on your phone. Connect your wallet to the localhost to use this node.</string>
+    <string name="app_version">1.1</string>
     <string name="daemon_version">N/A</string>
-    <string name="title_daemon_version">Aeon daemon version</string>
+    <string name="title_daemon_version">Wownero daemon version</string>
     <string name="summary_support">Got an issue or having ideas to improve this app? We are happy to help at https://github.com/enerc/Aeon-daemon</string>
     <string name="title_support">Feedback</string>
 
     <string name="action_log">Logs</string>
     <string name="log_content">Log content.......</string>
     <string name="donation">Donations</string>
-    <string name="donation_aeon">AEON donation</string>
+    <string name="donation_aeon">WOW donation</string>
     <string name="donation_xmr">XMR donation</string>
-    <string name="donation_aeon_msg" translatable="false">Aeon</string>
-    <string name="donation_aeon_addr" translatable="false">Wmsmmjtzk269mpmWm9CTC8DXDs9FZmKdrbFqm1gAmdFxJwEtsZU9PxDJDLYxtLsoSSjn6y6iXYcXVfgYSAGC5vrL13rDqUs4n</string>
+    <string name="donation_aeon_msg" translatable="false">Wownero</string>
+    <string name="donation_aeon_addr" translatable="false">Wo3tBXLr9Sq7cyqHiwoYTTGc4EfPidFFUN6rPv4RdrWc1boYemdNsRyFbpq1nnDAbRYTb8QArzF86Be1AuiabmqA37mTGhw1u</string>
     <string name="donation_xmr_msg" translatable="false">XMR</string>
     <string name="donation_xmr_addr" translatable="false">4AZSfpPFsLEgxpBVmNdoysYERDQiGu7daKB2WtWgKK1AGqeJBhRp4ZNjVPMARyoSpPb3WkGsQ7p5tKvKex9eJpFqRJQXvQZ</string>
     <string name="apropos">About this app</string>
@@ -143,10 +143,10 @@
     </string-array>
 
     <string-array name="theme_values">
-        <item>PreferencesThemeAeonSolid</item>
-        <item>PreferencesThemeAeonBg</item>
-        <item>PreferencesThemeAeonCoins</item>
-        <item>PreferencesThemeAeonMyth</item>
+        <item>PreferencesThemeWownero1</item>
+        <item>PreferencesThemeWownero2</item>
+        <item>PreferencesThemeWownero3</item>
+        <item>PreferencesThemeWownero4</item>
     </string-array>
 
 
