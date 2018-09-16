@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private static ViewPager mViewPager;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private SynchronizeThread synchronizeThread = null;
-    private Context context = null;
+    private static Context context = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,14 +136,14 @@ public class MainActivity extends AppCompatActivity {
         Resources res = getResources();
         //Log.d(TAG, " " + is64bitsProcessor());
 
-        InputStream in_s = res.openRawResource(is64bitsProcessor() ? R.raw.aeond64 : R.raw.aeond32);
+        InputStream in_s = res.openRawResource(is64bitsProcessor() ? R.raw.wownerod64 : R.raw.wownerod32);
         try {
-            // read aeond binary file from the ressource raw folder
+            // read wownerod binary file from the ressource raw folder
             byte[] b = new byte[in_s.available()];
             in_s.read(b);
             String pathName = context.getApplicationInfo().dataDir + "/lib";
 
-            BINARY_PATH = context.getCacheDir().getPath() + "/../aeond";
+            BINARY_PATH = context.getCacheDir().getPath() + "/../wownerod";
 
             // write the file to an android executable location
             OutputStream outputStream = new FileOutputStream(BINARY_PATH);
@@ -223,46 +223,49 @@ public class MainActivity extends AppCompatActivity {
     public static int getStyle(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String theme = preferences.getString("theme", null);
-
         if (theme == null)
-            return R.style.PreferencesThemeAeonCoins;
-        else if (theme.equals("PreferencesThemeAeonSolid"))
-            return R.style.PreferencesThemeAeonSolid;
-        else if (theme.equals("PreferencesThemeAeonBg"))
-            return R.style.PreferencesThemeAeonBg;
-        else if (theme.equals("PreferencesThemeAeonMyth"))
-            return R.style.PreferencesThemeAeonMythology;
+            return R.style.PreferencesThemeWownero4;
+        else if (theme.equals("PreferencesThemeWownero1"))
+            return R.style.PreferencesThemeWownero1;
+        else if (theme.equals("PreferencesThemeWownero2"))
+            return R.style.PreferencesThemeWownero2;
+        else if (theme.equals("PreferencesThemeWownero3"))
+            return R.style.PreferencesThemeWownero3;
         else
-            return R.style.PreferencesThemeAeonCoins;
+            return R.style.PreferencesThemeWownero4;
     }
 
     public static int getToolbarBg(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String theme = preferences.getString("theme", null);
         if (theme == null)
-            return R.drawable.coinscolor;
-        else if (theme.equals("PreferencesThemeAeonSolid"))
-            return R.drawable.solidcolor;
-        else if (theme.equals("PreferencesThemeAeonBg"))
-            return R.drawable.actionbar;
-        else if (theme.equals("PreferencesThemeAeonMyth"))
-            return R.drawable.mythbar;
+            return R.drawable.wsolidcolor;
+        else if (theme.equals("PreferencesThemeWownero1"))
+            return R.drawable.wsolidcolor;
+        else if (theme.equals("PreferencesThemeWownero2"))
+            return R.drawable.wsolidcolor;
+        else if (theme.equals("PreferencesThemeWownero3"))
+            return R.drawable.wsolidcolor;
         else
-            return R.drawable.coinscolor;
+            return R.drawable.wsolidcolor;
     }
 
     public static int getBg(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String theme = preferences.getString("theme", null);
         if (theme == null)
-            return R.drawable.coins;
-        else if (theme.equals("PreferencesThemeAeonSolid"))
-            return R.drawable.solidcolor;
-        else if (theme.equals("PreferencesThemeAeonBg"))
-            return R.drawable.background;
-        else if (theme.equals("PreferencesThemeAeonMyth"))
-            return R.drawable.mythology;
+            return R.drawable.w001;
+        else if (theme.equals("PreferencesThemeWownero1"))
+            return R.drawable.wsolidcolor;
+        else if (theme.equals("PreferencesThemeWownero2"))
+            return R.drawable.wcoin;
+        else if (theme.equals("PreferencesThemeWownero3"))
+            return R.drawable.wowario;
         else
-            return R.drawable.coins;
+            return R.drawable.w001;
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

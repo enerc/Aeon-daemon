@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Nœud crypto-monnaie Aeon</string>
+    <string name="app_name">Nœud crypto-monnaie Wownero</string>
     <string name="action_settings">Paramètres</string>
     <string name="title_activity_settings">Paramètres</string>
     <string name="action_about">A propos</string>
@@ -44,10 +44,10 @@
     <string name="priorityNode">Nœud prioritaire</string>
     <string name="summary_priorityNode">Entrer un nœud prioritaire</string>
     <string name="title_priorityNode">Nœud prioritaire</string>
-    <string name="summary_about">Cette application permet de faire tourner un nœud de crypto monnaie AEON sur votre téléphone. Pour faire des transactions en toute sécurité, connectez votre portefeuille sur ce nœud local.</string>
-    <string name="app_version">0.1 - Beta</string>
+    <string name="summary_about">Cette application permet de faire tourner un nœud de crypto monnaie Wownero sur votre téléphone. Pour faire des transactions en toute sécurité, connectez votre portefeuille sur ce nœud local.</string>
+    <string name="app_version">1.1</string>
     <string name="daemon_version">N/A</string>
-    <string name="title_daemon_version">Version logicielle du nœud AEON</string>
+    <string name="title_daemon_version">Version logicielle du nœud Wownero</string>
     <string name="summary_support">Des idées pour nous aider? Des problèmes d\'utilisation. Rendez vous sur https://github.com/enerc/Aeon-daemon</string>
     <string name="title_support">Votre avis</string>
     <string name="action_log">Traces</string>
@@ -107,19 +107,19 @@
 
     <string-array name="theme_titles">
         <item>Couleur unie</item>
-        <item>L\'espace</item>
-        <item>Monnaies</item>
-        <item>Mythologie</item>
+        <item>Coin WOW</item>
+        <item>Wownario</item>
+        <item>WOW!</item>
     </string-array>
 
     <string-array name="theme_values">
-        <item>PreferencesThemeAeonSolid</item>
-        <item>PreferencesThemeAeonBg</item>
-        <item>PreferencesThemeAeonCoins</item>
-        <item>PreferencesThemeAeonMyth</item>
+        <item>PreferencesThemeWownero1</item>
+        <item>PreferencesThemeWownero2</item>
+        <item>PreferencesThemeWownero3</item>
+        <item>PreferencesThemeWownero4</item>
     </string-array>
 
-    <string name="donation_aeon">Dons AEON</string>
+    <string name="donation_aeon">Dons Wownero</string>
     <string name="donation_xmr">Dons XMR</string>
     <string name="apropos">Qui suis-je?</string>
     <string name="height">Bloc</string>
