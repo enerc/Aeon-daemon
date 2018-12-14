@@ -124,7 +124,7 @@ public class SettingsPrefActivity extends AppCompatPreferenceActivity {
                         }
                         MainSlideFragment.setHasCriticalError(false);
                         if (launcher != null) {
-                            Log.e(TAG, "Stop aeon daemon");
+                            Log.e(TAG, "Stop Wownero daemon");
                             launcher.exit();
                         }
                     }
@@ -163,8 +163,8 @@ public class SettingsPrefActivity extends AppCompatPreferenceActivity {
     public void onResume(){
         super.onResume();
 
-        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(context, MainActivity.getToolbarBg(context)));
-        setTheme(MainActivity.getStyle(context));
+        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.wsolidcolor));
+        setTheme(R.style.PreferencesThemeWownero1);
     }
 
 }

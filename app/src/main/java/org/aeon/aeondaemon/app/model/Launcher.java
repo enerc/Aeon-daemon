@@ -109,14 +109,14 @@ public class Launcher {
                 if (logs.length() > MAX_LOG_SIZE)
                     logs.delete(0,logs.length() - MAX_LOG_SIZE);
 
-                // Try to get aeond version and build number
+                // Try to get wownerod version and build number
                 if (version == null) {
                     int i = logs.toString().indexOf("src/daemon/main.cpp");
                     if (i != -1) {
-                        int j = logs.toString().substring(i).indexOf("Aeon '");
+                        int j = logs.toString().substring(i).indexOf("Wownero '");
                         if (j != -1) {
                             int k = logs.toString().substring(i+j).indexOf(")");
-                            version =  logs.toString().substring(i+j+5,i+j+k+1);
+                            version =  logs.toString().substring(i+j,i+j+k+1);
                         }
                     }
                 }
@@ -276,8 +276,8 @@ public class Launcher {
             BufferedReader bReader = new BufferedReader(isReader);
             String strLine = null;
             while ((strLine = bReader.readLine()) != null) {
-                int i = strLine.lastIndexOf("aeond");
-                if (i > 0 && !(strLine.length() > i+5 && strLine.charAt(i+5) == 'a')) {
+                int i = strLine.lastIndexOf("wownerod");
+                if (i > 0 && !(strLine.length() > i+8 && strLine.charAt(i+8) == 'a')) {
                     processState = ProcessState.RUNNING;
                     return true;
                 }

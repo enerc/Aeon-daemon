@@ -141,11 +141,11 @@ public class CollectPreferences {
         //Log.d(TAG,"External storage: "+hasExternalStorage);
 
         if (!hasExternalStorage) return null;
-        else return externalStoragePath+ "/Aeon";
+        else return externalStoragePath+ "/wownero";
     }
 
     public static String getCustomPath() {
-        File file = new File(Environment.getExternalStorageDirectory(),"aeon");
+        File file = new File(Environment.getExternalStorageDirectory(),"wownero");
         if (!file.mkdirs()) {
             Log.e(TAG, "Directory not created");
         }
