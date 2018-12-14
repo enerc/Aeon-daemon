@@ -3,19 +3,21 @@
 AEON node for your Android phone. This is aeond packaged in an Android App.  
 
 
-## Installation from github
+## Installation from github binaries
+
+Make sure you enabled unknown sources in Android configuration (settings -> Security).
+
+They download the app here: <a href="https://github.com/enerc/Aeon-daemon/blob/master/app/release/app-release.apk">Download and install...</a>
+
+
+
+## Build it yourself
 
 If you want to build the app yourself, the first thing is to get AEON on https://github.com/aeonix/aeon, then build binaries for arm64-v8a and armeabi, and then replace the compiled aeond binary under res/raw.
 
 res/raw/aeond32 is the arm 32 bit compiled daemon, and res/raw/aeon64 is the 64 bit one.
 
 Then import and build with android studio.  
-
-
-
-## Installation from play store
-
-A packaged app is available on the playstore under the name "AEON Daemon" or at https://play.google.com/store/apps/details?id=org.aeon.aeondaemon.app  
 
 
 ## Phone requirements
