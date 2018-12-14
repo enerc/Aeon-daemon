@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "org.wownero.wownerodaemon.app"
+        applicationId "org.aeon.aeondaemon.app"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 3
-        versionName "0.3"
+        versionCode 13
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
