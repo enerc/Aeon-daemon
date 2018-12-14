@@ -2,7 +2,7 @@
  
 AEON node for your Android phone. This is aeond packaged in an Android App.  
 
-
+ 
 ## Installation from github binaries
 
 Make sure you enabled unknown sources in Android configuration (settings -> Security).
