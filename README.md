@@ -7,7 +7,7 @@ AEON node for your Android phone. This is aeond packaged in an Android App.
 
 Make sure you enabled unknown sources in Android configuration (settings -> Security).
 
-Then download the app here: <a href="https://github.com/enerc/Aeon-daemon/raw/master/app/release/app-release.apk">Download and install...</a>
+Then download the app in the release section. 
 
 
 
