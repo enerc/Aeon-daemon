@@ -14,7 +14,7 @@ Then download the app in the release section.
 
 ## Build it yourself
 
-If you want to build the app yourself, the first thing is to get AEON on https://github.com/aeonix/aeon, then build binaries for arm64-v8a and armeabi, and then replace the compiled aeond binary under res/raw.
+If you want to build the app yourself, the first thing is to get AEON on https://github.com/aeonix/aeon, then [build binaries for arm64-v8a and armeabi](https://github.com/BigslimVdub/AeonAndroidArmV8), and then replace the compiled aeond binary under res/raw.
 
 res/raw/aeond32 is the arm 32 bit compiled daemon, and res/raw/aeon64 is the 64 bit one.
 
